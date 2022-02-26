@@ -1,18 +1,12 @@
 package com.example.fueltracker;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.LinearLayout;
+import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -23,27 +17,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        LinearLayout layout = findViewById(R.id.layoutMain);
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Hermes by 'Team Name'");
 
-        TextView vText = new TextView(this);
-        TextView aText = new TextView(this);
-        TextView fuelText = new TextView(this);
+//        LinearLayout layout = findViewById(R.id.layoutMain);
 
-        vText.setText("a");
-        aText.setText("b");
-        fuelText.setText("c");
+//        TextView vText = new TextView(this);
+//        TextView aText = new TextView(this);
+//        TextView fuelText = new TextView(this);
 
-        layout.addView(vText);
-        layout.addView(aText);
-        layout.addView(fuelText);
+        Button speedButton = findViewById(R.id.speedButton);
+        Button fuelButton = findViewById(R.id.fuelButton);
+        TextView carLabel = findViewById(R.id.carLabel);
 
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                vText.setText(Float.toString(CarSession._speed));
-                aText.setText(Float.toString(CarSession._acceleration));
-                fuelText.setText(Float.toString(CarSession._fuel));
+                speedButton.setText(
+                        String.format("Speed: %.0f kmh⁻¹    Acceleration: %.0f ms⁻²",
+                                CarSession._speed * 3.6, CarSession._acceleration));
+                fuelButton.setText(String.format("Fuel: %.0f%%", CarSession._fuel));
+                carLabel.setText(String.format("%d %s %s", CarSession._year, CarSession._make, CarSession._model));
             }
-        }, 0, 500);
+        }, 0, 100);
     }
 }

@@ -12,7 +12,6 @@ import androidx.car.app.hardware.CarHardwareManager;
 import androidx.car.app.hardware.common.CarValue;
 import androidx.car.app.hardware.info.CarInfo;
 import androidx.car.app.hardware.info.CarSensors;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,6 +22,9 @@ public final class CarSession extends Session {
     public static float _acceleration = 0;
     public static float _speed = 0;
     public static float _fuel = 0;
+    public static String _make = "";
+    public static String _model = "";
+    public static int _year = 0;
 
     @Override
     @NonNull
@@ -47,6 +49,22 @@ public final class CarSession extends Session {
 
             // TODO check granted permissions to make sure data can be read
             // TODO and show error message that user needs to accept permissions
+
+            carInfo.fetchModel(executor, (data) -> {
+                CarValue<String> make = data.getManufacturer();
+                CarValue<String> model = data.getName();
+                CarValue<Integer> year = data.getYear();
+
+                if (make.getValue() != null && make.getStatus() == CarValue.STATUS_SUCCESS) {
+                    _make = make.getValue();
+                }
+                if (model.getValue() != null && model.getStatus() == CarValue.STATUS_SUCCESS) {
+                    _model = model.getValue();
+                }
+                if (year.getValue() != null && year.getStatus() == CarValue.STATUS_SUCCESS) {
+                    _year = year.getValue();
+                }
+            });
 
             carSensors.addAccelerometerListener(CarSensors.UPDATE_RATE_NORMAL, executor, (data) -> {
                 CarValue<List<Float>> acceleration = data.getForces();
