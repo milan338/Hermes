@@ -12,12 +12,17 @@ import androidx.car.app.hardware.CarHardwareManager;
 import androidx.car.app.hardware.common.CarValue;
 import androidx.car.app.hardware.info.CarInfo;
 import androidx.car.app.hardware.info.CarSensors;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executor;
 
 public final class CarSession extends Session {
+
+    public static float _acceleration = 0;
+    public static float _speed = 0;
+    public static float _fuel = 0;
 
     @Override
     @NonNull
@@ -49,6 +54,7 @@ public final class CarSession extends Session {
                     List<Float> accXYZ = acceleration.getValue();
                     float accX = accXYZ.get(0);
                     screen.updateScreen(Float.toString(accX));
+                    _acceleration = accX;
                 } else {
                     screen.updateScreen("Acceleration read error");
                 }
@@ -59,6 +65,7 @@ public final class CarSession extends Session {
                 if (displaySpeed.getValue() != null && displaySpeed.getStatus() == CarValue.STATUS_SUCCESS) {
                     float speed = displaySpeed.getValue();
                     screen.updateScreen(Float.toString(speed));
+                    _speed = speed;
                 } else {
                     screen.updateScreen("Speed read error");
                     // Display error
@@ -70,11 +77,13 @@ public final class CarSession extends Session {
                 if (fuelLevel.getValue() != null && fuelLevel.getStatus() == CarValue.STATUS_SUCCESS) {
                     float fuel = fuelLevel.getValue();
                     screen.updateScreen(Float.toString(fuel));
+                    _fuel = fuel;
                 } else {
                     screen.updateScreen("Fuel read error");
                     // Display error
                 }
             });
+
         });
         return screen;
     }
