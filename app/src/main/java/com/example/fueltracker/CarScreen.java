@@ -20,7 +20,6 @@ public class CarScreen extends Screen {
     @NonNull
     @Override
     public Template onGetTemplate() {
-
         Row row = new Row.Builder().setTitle("Hermes is running").addText(_message).build();
         Pane pane = new Pane.Builder().addRow(row).build();
         return new PaneTemplate.Builder(pane)

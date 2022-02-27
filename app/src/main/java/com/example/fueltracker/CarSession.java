@@ -30,6 +30,7 @@ public final class CarSession extends Session {
     public static String _make = "";
     public static String _model = "";
     public static int _year = 0;
+    public static boolean _showToast = false;
 
     private final Queue<Float> accQueue = new LinkedList<>();
 
@@ -113,11 +114,16 @@ public final class CarSession extends Session {
             new Timer().scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
+                    // Debug toast notification
+                    if (_showToast) {
+                        CarToast.makeText(getCarContext(), "Inefficient Driving Detected", CarToast.LENGTH_SHORT).show();
+                        _showToast = false;
+                    }
                     // Amount of samples to take
                     // 10 seconds at lower speeds, 20 seconds above 60 kmh
                     int samples = _speed <= 16.7 ? 100 : 200;
                     if (accQueue.size() >= 200)
-                        accQueue.remove();
+                        accQueue.poll();
                     accQueue.add(_acceleration);
                     int i = 0;
                     float accAve = 0;
@@ -130,7 +136,8 @@ public final class CarSession extends Session {
                     accAve /= samples;
                     // If average acceleration is above threshold, penalise
                     if (Math.abs(accAve) > A_DELTA) {
-                        CarToast.makeText(getCarContext(), "Inefficient Driving Detected", CarToast.LENGTH_SHORT);
+                        // Appears to crash on the beta emulator ¯\_(ツ)_/¯
+                        _showToast = true;
                         strikes++;
                         // Clear the queue
                         for (int j = 0; j < 20; j++) {

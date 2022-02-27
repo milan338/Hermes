@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -26,7 +27,10 @@ public class MainActivity extends AppCompatActivity {
 
         Button speedButton = findViewById(R.id.speedButton);
         Button fuelButton = findViewById(R.id.fuelButton);
+        Button rankButton = findViewById(R.id.rankButton);
         TextView carLabel = findViewById(R.id.carLabel);
+
+        rankButton.setOnClickListener((view) -> CarSession._showToast = true);
 
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -46,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateScoreSlider() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        float percent = 100 - (3 * preferences.getFloat("FuelTrackerScore", 0));
+        float percent = 100 - Math.min((3 * preferences.getFloat("FuelTrackerScore", 0)), 99);
         ProgressBar scoreSlider = findViewById(R.id.efficiencyProgress);
         scoreSlider.setProgress(Math.max(Math.round(percent), 0));
     }
