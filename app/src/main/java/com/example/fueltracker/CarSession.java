@@ -136,13 +136,11 @@ public final class CarSession extends Session {
                     accAve /= samples;
                     // If average acceleration is above threshold, penalise
                     if (Math.abs(accAve) > A_DELTA) {
-                        // Appears to crash on the beta emulator ¯\_(ツ)_/¯
+                        // Clear the queue
+                        while (accQueue.size() > 0)
+                            accQueue.poll();
                         _showToast = true;
                         strikes++;
-                        // Clear the queue
-                        for (int j = 0; j < 20; j++) {
-                            accQueue.poll();
-                        }
                     }
                 }
             }, 0, 100);
