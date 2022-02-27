@@ -10,17 +10,18 @@ import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
 
 public class CarScreen extends Screen {
+
+    private String _message = "";
+
     protected CarScreen(@NonNull CarContext carContext) {
         super(carContext);
     }
 
-    private String aMessage = "Hello, world!";
-
     @NonNull
     @Override
     public Template onGetTemplate() {
-        Row row = new Row.Builder().setTitle(aMessage).build();
-//        Row row = new Row.Builder().setTitle(Integer.toString(i)).build();
+
+        Row row = new Row.Builder().setTitle("Hermes is running").addText(_message).build();
         Pane pane = new Pane.Builder().addRow(row).build();
         return new PaneTemplate.Builder(pane)
                 .setHeaderAction(Action.APP_ICON)
@@ -28,7 +29,7 @@ public class CarScreen extends Screen {
     }
 
     public void updateScreen(String message) {
-        aMessage = message;
+        _message = message;
         invalidate();
     }
 }

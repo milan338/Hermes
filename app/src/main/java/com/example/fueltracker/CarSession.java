@@ -6,6 +6,7 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.car.app.CarContext;
+import androidx.car.app.CarToast;
 import androidx.car.app.Screen;
 import androidx.car.app.Session;
 import androidx.car.app.hardware.CarHardwareManager;
@@ -86,7 +87,7 @@ public final class CarSession extends Session {
                     List<Float> accXYZ = acceleration.getValue();
                     _acceleration = accXYZ.get(0);
                 } else {
-                    screen.updateScreen("Acceleration read error");
+                    screen.updateScreen("Error reading acceleration");
                 }
             });
 
@@ -95,8 +96,7 @@ public final class CarSession extends Session {
                 if (displaySpeed.getValue() != null && displaySpeed.getStatus() == CarValue.STATUS_SUCCESS) {
                     _speed = displaySpeed.getValue();
                 } else {
-                    screen.updateScreen("Speed read error");
-                    // Display error
+                    screen.updateScreen("Error reading speed");
                 }
             });
 
@@ -105,8 +105,7 @@ public final class CarSession extends Session {
                 if (fuelLevel.getValue() != null && fuelLevel.getStatus() == CarValue.STATUS_SUCCESS) {
                     _fuel = fuelLevel.getValue();
                 } else {
-                    screen.updateScreen("Fuel read error");
-                    // Display error
+                    screen.updateScreen("Error reading fuel");
                 }
             });
 
@@ -131,9 +130,10 @@ public final class CarSession extends Session {
                     accAve /= samples;
                     // If average acceleration is above threshold, penalise
                     if (Math.abs(accAve) > A_DELTA) {
+                        CarToast.makeText(getCarContext(), "Inefficient Driving Detected", CarToast.LENGTH_SHORT);
                         strikes++;
                         // Clear the queue
-                        for (int j = 0; i < 20; i++) {
+                        for (int j = 0; j < 20; j++) {
                             accQueue.poll();
                         }
                     }
