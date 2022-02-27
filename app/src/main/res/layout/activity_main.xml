@@ -11,7 +11,8 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="300dp"
         android:layout_height="31dp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        android:layout_marginTop="64dp"
+        android:max="100"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +22,7 @@
         android:id="@+id/textView"
         android:layout_width="211dp"
         android:layout_height="30dp"
-        android:text="Your overall efficiency"
+        android:text="Your Overall Efficiency"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/efficiencyProgress"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,28 +55,12 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="330dp"
-        android:layout_height="350dp"
-        app:layout_constraintBottom_toTopOf="@+id/carLabel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="SpeakableTextPresentCheck">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
-
     <TextView
         android:id="@+id/carLabel"
-        android:layout_width="328dp"
-        android:layout_height="17dp"
+        android:layout_width="330dp"
+        android:layout_height="20dp"
         android:layout_marginBottom="4dp"
-        android:text="Connected to:"
+        android:text="Not Connected"
         android:textAlignment="viewStart"
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/speedButton"
@@ -83,17 +68,109 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="159dp"
-        android:layout_height="30dp"
-        android:text="Past Journies"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/carLabel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.158"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/efficiencyProgress"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Wednesday, January 26" />
+
+            <ProgressBar
+                android:id="@+id/efficiencyProgress2"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="309dp"
+                android:layout_height="31dp"
+                android:max="100"
+                android:progress="30"
+                android:progressTint="#EC714A" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tuesday, Febuary 1" />
+
+            <ProgressBar
+                android:id="@+id/efficiencyProgress3"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="31dp"
+                android:max="100"
+                android:progress="60"
+                android:progressTint="#B3CA4F" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Friday, Febuary 25" />
+
+            <ProgressBar
+                android:id="@+id/efficiencyProgress4"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="31dp"
+                android:max="100"
+                android:progress="15"
+                android:progressTint="#FF3D00" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Monday, March 7" />
+
+            <ProgressBar
+                android:id="@+id/efficiencyProgress5"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="31dp"
+                android:max="100"
+                android:progress="80"
+                android:progressTint="#66B60A" />
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="211dp"
+        android:layout_height="30dp"
+        android:text="Previous Trips"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.205"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/efficiencyProgress"
+        app:layout_constraintVertical_bias="0.878" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Global Rank: #769"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.165"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/efficiencyProgress"
+        app:layout_constraintVertical_bias="0.418" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
